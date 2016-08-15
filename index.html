@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Progress Bar Directive for AngularJS</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Thanks for the progress bar style from Codify(https://www.youtube.com/watch?v=DYevj6UGNWA) -->
+    <style type="text/css">
+        .progressbar {
+            counter-reset: step;
+            margin: 0;
+            margin-top: 50px;
+            padding: 0;
+        }
+
+        .progressbar li {
+            list-style-type: none;
+            float: left;
+            position: relative;
+            text-align: center;
+        }
+
+        .progressbar li:before {
+            content: counter(step);
+            counter-increment: step;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            border: 2px solid #ddd;
+            display: block;
+            text-align: center;
+            margin: 0 auto 10px auto;
+            border-radius: 50%;
+            background-color: white;
+        }
+
+        .progressbar li:after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background-color: #ddd;
+            top: 15px;
+            left: -50%;
+            z-index: -1;
+        }
+
+        .progressbar li:first-child:after {
+            content: none;
+        }
+
+        .progressbar li.active {
+            color: green;
+        }
+
+        .progressbar li.active:before {
+            border-color: green;
+        }
+
+        .progressbar li.active + li:after {
+            background-color: green;
+        }
+    </style>
+
+</head>
+<body ng-app="app">
+<div ng-controller="IndexController">
+    <div class="container">
+        <progress-bar ng-model="progressSteps"></progress-bar>
+    </div>
+
+    <div class="text-center">
+        <button class="btn btn-info" ng-click="next()" ng-disabled="progressSteps[progressSteps.length-1].done"
+                ng-bind="nextText"></button>
+        <button class="btn btn-info" ng-click="delete()">-</button>
+        <button class="btn btn-info" ng-click="add()">+</button>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://opensource.keycdn.com/angularjs/1.5.8/angular.min.js"></script>
+<script type="text/javascript" src="app.module.js"></script>
+<script type="text/javascript" src="progressBar.directive.js"></script>
+</body>
+</html>
